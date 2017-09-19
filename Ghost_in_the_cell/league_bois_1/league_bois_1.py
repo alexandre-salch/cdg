@@ -346,7 +346,7 @@ class GameController(object):
 
         for it_factory in i_new_state.factories:
             factory = i_new_state.factories[it_factory]
-            if factory.player != 0 and factory.can_produce_after_turn < i_new_state.nb_turns:
+            if factory.player != 0 and factory.can_produce_after_turn <= i_new_state.nb_turns:
                 factory.nb_cyborgs += factory.production
 
     def play_fights(self, i_new_state):
@@ -377,7 +377,7 @@ class GameController(object):
             if nb_casualties < 10:
                 nb_casualties = min(10, factory.nb_cyborgs)
             factory.nb_cyborgs -= nb_casualties
-            factory.can_produce_after_turn = i_new_state.nb_turns + 5
+            factory.can_produce_after_turn = i_new_state.nb_turns + 5*2
             i_new_state.bombs[it_arriving].exploded = True
 
 
@@ -555,9 +555,9 @@ def score_factory(network, state, i_source_factory_id, i_target_factory_id, i_Tr
     source_production = source_factory.production
 
     diff_troops_at_arrival = source_nb_cyborgs - target_nb_cyborgs - target_production * distance
-    
+
     if i_TroopBombBoolean:
-        iScore = target_factory.production + diff_troops_at_arrival - distance 
+        iScore = target_factory.production + diff_troops_at_arrival - distance
     else:
         iScore = target_production * distance
 
@@ -600,7 +600,7 @@ def select_actions(network, state):
                 if orderTroop.destination != best_action_factory_0[1]: # can adjsuted if take into account the distance
                     new_res.append(it_action_factory)
             res = new_res
-        
+
     if not res:
         res.append(OrderWait())
     #log(res)
