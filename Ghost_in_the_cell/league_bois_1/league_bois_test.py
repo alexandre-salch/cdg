@@ -297,6 +297,23 @@ def parse_log_file(i_file):
     # print("p1: " + ";".join([str(order) for orders in order_player_1 for order in orders]))
     # print("p-1: " + ";".join([str(order) for orders in order_player_minus_1 for order in orders]))
 
+def update_entities_id(i_simulated, i_stored):
+    """
+    Rewrite the uuid id from the entity if it is found in the corresponding stored state.
+    """
+
+    simulated = [i_simulated.troops, i_simulated.bombs]
+    stored = [i_stored.troops, i_stored.bombs]
+
+    for it_entity in range(2):
+        for it_simulated_entity in simulated[it_entity]:
+            if it_simulated_entity in stored[it_entity]:
+                continue
+            else:
+                for it_stored_entity in stored[it_entity]:
+                    if simulated[it_entity][it_simulated_entity] == stored[it_entity][it_stored_entity]:
+                        simulated[it_entity][it_simulated_entity].id = stored[it_entity][it_stored_entity].id
+                        break
 
 
 class TurnTest(unittest.TestCase):
@@ -336,6 +353,7 @@ class EndToEnd(unittest.TestCase):
                 # if it_state == 9:
 
                 is_game_finished, simulated_next_state, _ = one_turn_test_function(network, simulated_states[it_state], order_player_1[it_state], order_player_minus_1[it_state])
+                update_entities_id(simulated_next_state, states[it_state+1])
                 simulated_states.append(simulated_next_state)
 
                 print("it_state: " + str(it_state))
@@ -344,11 +362,12 @@ class EndToEnd(unittest.TestCase):
                 print("orders-1: " + ";".join([str(orders) for orders in order_player_minus_1[it_state]]))
                 print("state " + str(it_state + 1) + ": " + "\n".join([str(states[it_state+1])]))
                 print("simulated state " + str(it_state + 1) + ": " + "\n".join([str(simulated_states[it_state+1])]))
+                print("state turn: simulated: "  + str(simulated_states[it_state+1].nb_turns) + " ; saved: " + str(states[it_state+1].nb_turns))
+                print("simulated can produce after turn: " + str(simulated_states[it_state+1].factories["1"].can_produce_after_turn))
+                print("stored can produce after turn: " + str(states[it_state+1].factories["1"].can_produce_after_turn))
 
                 self.assertFalse(is_game_finished)
                 self.assertEqual(states[it_state+1], simulated_states[it_state+1])
-
-
 
 
 
