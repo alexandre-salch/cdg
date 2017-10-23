@@ -1,12 +1,11 @@
 from __future__ import print_function
 import sys
-import math
 import uuid
 import copy
-import abc
 import traceback
 
-# ###############################################################################################
+
+################################################################################################
 # LIBRARIES
 # ###############################################################################################
 class Graph:
@@ -33,13 +32,13 @@ class Graph:
 
     def check_node_exists(self, i_node_id, i_fun_name):
         try:
-            node = self.nodes[i_node_id]
-        except KeyError as exception:
-            log("Graph." + i_fun_name + ": ERROR: node_id "+str(i_node_id)+" doesn't exist.")
+            self.nodes[i_node_id]
+        except KeyError:
+            log("Graph." + i_fun_name + ": ERROR: node_id " + str(i_node_id) + " doesn't exist.")
             traceback.print_stack()
             raise KeyError
 
-    def add_directed_edge(self, i_node1_id, i_node2_id, i_weight = 0):
+    def add_directed_edge(self, i_node1_id, i_node2_id, i_weight=0):
         """ adds a directed adge between 2 nodes, and creates an empty value for the node if not existing"""
         if i_node1_id not in self.nodes.keys():
             self.set_node_value(i_node1_id, 0)
@@ -52,26 +51,26 @@ class Graph:
         self.edges[i_node1_id][i_node2_id] = i_weight
         self.origins[i_node2_id][i_node1_id] = i_weight
 
-    def add_undirected_edge(self, i_node1_id, i_node2_id, i_weight = 0):
+    def add_undirected_edge(self, i_node1_id, i_node2_id, i_weight=0):
         self.add_directed_edge(i_node1_id, i_node2_id, i_weight)
         self.add_directed_edge(i_node2_id, i_node1_id, i_weight)
 
     def check_edge_exists(self, i_node1_id, i_node2_id, i_fun_name):
         try:
-            a_node_1 = self.edges[i_node1_id]
-        except KeyError as exception:
-            log("Graph." + i_fun_name + ": ERROR: node_id "+str(i_node1_id)+" doesn't exist.")
+            self.edges[i_node1_id]
+        except KeyError:
+            log("Graph." + i_fun_name + ": ERROR: node_id " + str(i_node1_id) + " doesn't exist.")
             traceback.print_stack()
             raise KeyError
         try:
-            a_weight = self.edges[i_node1_id][i_node2_id]
-        except KeyError as exception:
-            log("Graph." + i_fun_name + ": ERROR: node_id "+str(i_node2_id)+" doesn't exist.")
+            self.edges[i_node1_id][i_node2_id]
+        except KeyError:
+            log("Graph." + i_fun_name + ": ERROR: node_id " + str(i_node2_id) + " doesn't exist.")
             traceback.print_stack()
             raise KeyError
 
     def delete_directed_edge(self, i_node1_id, i_node2_id):
-        self.check_edge_exists(i_node1_id,i_node2_id,"delete_directed_edge")
+        self.check_edge_exists(i_node1_id, i_node2_id, "delete_directed_edge")
         del self.edges[i_node1_id][i_node2_id]
         del self.origins[i_node2_id][i_node1_id]
         if not self.edges[i_node1_id]:
@@ -80,17 +79,17 @@ class Graph:
             del self.origins[i_node2_id]
 
     def delete_undirected_edge(self, i_node1_id, i_node2_id):
-        self.check_edge_exists(i_node1_id,i_node2_id,"delete_undirected_edge")
-        self.check_edge_exists(i_node2_id,i_node1_id,"delete_undirected_edge")
+        self.check_edge_exists(i_node1_id, i_node2_id, "delete_undirected_edge")
+        self.check_edge_exists(i_node2_id, i_node1_id, "delete_undirected_edge")
         self.delete_directed_edge(i_node1_id, i_node2_id)
         self.delete_directed_edge(i_node2_id, i_node1_id)
 
     def get_edge_weight(self, i_node1_id, i_node2_id):
-        self.check_edge_exists(i_node1_id,i_node2_id,"get_edge_weight")
+        self.check_edge_exists(i_node1_id, i_node2_id, "get_edge_weight")
         return self.edges[i_node1_id][i_node2_id]
 
     def set_edge_weight(self, i_node1_id, i_node2_id, i_weight):
-        self.check_edge_exists(i_node1_id,i_node2_id,"get_edge_weight")
+        self.check_edge_exists(i_node1_id, i_node2_id, "get_edge_weight")
         self.edges[i_node1_id][i_node2_id] = i_weight
 
     def get_nodes(self):
@@ -123,12 +122,12 @@ class Graph:
             path.reverse()
         return path
 
+
 # ###############################################################################################
 # OBJECTS
 # ###############################################################################################
 
 class Entity(object):
-
     def __init__(self, i_id, i_player):
         self.id = i_id
         self.player = i_player
@@ -137,15 +136,15 @@ class Entity(object):
     def parse(i_str, turn):
         splited_str = [field.split(": ")[1] for field in i_str.split("; ")]
         if i_str.startswith("Factory"):
-            return Factory.parse(splited_str)
+            return Factory.parse(splited_str, turn)
         elif i_str.startswith("Troop"):
             return Troop.parse(splited_str, turn)
         elif i_str.startswith("Bomb"):
             return Bomb.parse(splited_str, turn)
         return None
 
-class Factory(Entity):
 
+class Factory(Entity):
     def __init__(self, i_id, i_player, i_nb_cyborgs, i_production):
         Entity.__init__(self, i_id, i_player)
         self.nb_cyborgs = i_nb_cyborgs
@@ -154,13 +153,14 @@ class Factory(Entity):
         self.probable_bomb_target = None
 
     def __str__(self):
-        return "Factory id: " + str(self.id) + "; player: " + str(self.player) + "; nb_cyborgs: " + str(self.nb_cyborgs) + "; production: " + str(self.production)
+        return "Factory id: " + str(self.id) + "; player: " + str(self.player) + "; nb_cyborgs: " + str(
+            self.nb_cyborgs) + "; production: " + str(self.production)
 
     @staticmethod
-    def parse(i_str):
+    def parse(i_str, i_turn):
         return Factory(i_str[0], int(i_str[1]), int(i_str[2]), int(i_str[3]))
 
-    def __eq__(self,other):
+    def __eq__(self, other):
         if not isinstance(other, Factory):
             return False
         return self.player == other.player and self.nb_cyborgs == other.nb_cyborgs and self.production == other.production
@@ -175,16 +175,14 @@ class Factory(Entity):
         closest_id = None
         for it_factory in i_network.edges[self.id]:
             if i_state.factories[it_factory].player == opponent:
-                distance = get_edge_weight(self.id, it_factory)
+                distance = i_network.get_edge_weight(self.id, it_factory)
                 if closest_distance is None or closest_distance > distance:
                     closest_distance = distance
                     closest_id = it_factory
         return closest_id
 
 
-
 class Troop(Entity):
-
     def __init__(self, i_id, i_player, i_origin, i_destination, i_nb_cyborgs, i_nb_turns, i_turn_created):
         Entity.__init__(self, i_id, i_player)
         self.origin = i_origin
@@ -194,7 +192,9 @@ class Troop(Entity):
         self.turn_created = i_turn_created
 
     def __str__(self):
-        return "Troop id: " + str(self.id) + "; player: " + str(self.player) + "; origin: " + str(self.origin) +"; destination: " + str(self.destination) +"; nb_cyborgs: " + str(self.nb_cyborgs) + "; nb_turns: " + str(self.nb_turns)
+        return "Troop id: " + str(self.id) + "; player: " + str(self.player) + "; origin: " + str(
+            self.origin) + "; destination: " + str(self.destination) + "; nb_cyborgs: " + str(
+            self.nb_cyborgs) + "; nb_turns: " + str(self.nb_turns)
 
     @staticmethod
     def parse(i_str, turn):
@@ -210,7 +210,6 @@ class Troop(Entity):
 
 
 class Bomb(Entity):
-
     def __init__(self, i_id, i_player, i_origin, i_destination, i_nb_turns, i_turn_created):
         Entity.__init__(self, i_id, i_player)
         self.origin = i_origin
@@ -220,7 +219,8 @@ class Bomb(Entity):
         self.turn_created = i_turn_created
 
     def __str__(self):
-        return "Bomb id: " + str(self.id) + "; player: " + str(self.player) + "; origin: " + str(self.origin) +"; destination: " + str(self.destination) + "; nb_turns: " + str(self.nb_turns)
+        return "Bomb id: " + str(self.id) + "; player: " + str(self.player) + "; origin: " + str(
+            self.origin) + "; destination: " + str(self.destination) + "; nb_turns: " + str(self.nb_turns)
 
     @staticmethod
     def parse(i_str, turn):
@@ -239,8 +239,7 @@ class Bomb(Entity):
 
 
 class Order(object):
-
-    def __init__(self, i_origin = None, i_destination = None):
+    def __init__(self, i_origin=None, i_destination=None):
         self.origin = i_origin
         self.destination = i_destination
 
@@ -259,7 +258,6 @@ class Order(object):
 
 
 class OrderWait(Order):
-
     def __init__(self):
         Order.__init__(self)
 
@@ -272,7 +270,6 @@ class OrderWait(Order):
 
 
 class OrderTroops(Order):
-
     def __init__(self, i_origin, i_destination, i_nb_troop):
         Order.__init__(self, i_origin, i_destination)
         self.nb_troops = i_nb_troop
@@ -286,7 +283,6 @@ class OrderTroops(Order):
 
 
 class OrderBomb(Order):
-
     def __init__(self, i_origin, i_destination):
         Order.__init__(self, i_origin, i_destination)
 
@@ -297,8 +293,8 @@ class OrderBomb(Order):
     def parse(i_str):
         return OrderBomb(i_str[0], i_str[1])
 
-class OrderIncrease(Order):
 
+class OrderIncrease(Order):
     def __init__(self, i_origin):
         Order.__init__(self, i_origin)
 
@@ -309,13 +305,13 @@ class OrderIncrease(Order):
     def parse(i_str):
         return OrderIncrease(i_str[0])
 
-class ActionPlan(object):
 
+class ActionPlan(object):
     def __init__(self, i_order_set):
         self.order_set = i_order_set
 
     def __str__(self):
-        return ";".join([str(it_order) for it_order in self.i_order_set])
+        return ";".join([str(it_order) for it_order in self.order_set])
 
 
 class GameController(object):
@@ -344,20 +340,21 @@ class GameController(object):
                     current_troops = it_order.nb_troops if it_order.nb_troops < factory.nb_cyborgs else factory.nb_cyborgs
                     distance = self.network.get_edge_weight(it_order.origin, it_order.destination)
                     new_id = str(uuid.uuid4())
-                    i_new_state.troops[new_id] = Troop(new_id, i_player_id, it_order.origin, it_order.destination, current_troops, distance, i_new_state.nb_turns)
+                    i_new_state.troops[new_id] = Troop(new_id, i_player_id, it_order.origin, it_order.destination,
+                                                       current_troops, distance, i_new_state.nb_turns)
                     factory.nb_cyborgs -= current_troops
             elif isinstance(it_order, OrderBomb):
                 factory = i_new_state.factories[it_order.origin]
                 if factory.player == i_player_id and i_new_state.nb_bombs_launched()[i_player_id] < 2:
                     distance = self.network.get_edge_weight(it_order.origin, it_order.destination)
                     new_id = str(uuid.uuid4())
-                    i_new_state.bombs[new_id] = Bomb(new_id, i_player_id, it_order.origin, it_order.destination, distance, i_new_state.nb_turns)
+                    i_new_state.bombs[new_id] = Bomb(new_id, i_player_id, it_order.origin, it_order.destination,
+                                                     distance, i_new_state.nb_turns)
             elif isinstance(it_order, OrderIncrease):
                 factory = i_new_state.factories[it_order.origin]
                 if factory.player == i_player_id and factory.production < 3 and factory.nb_cyborgs >= 10:
                     factory.production += 1
                     factory.nb_cyborgs -= 10
-
 
     def generate_troops(self, i_new_state):
 
@@ -394,14 +391,13 @@ class GameController(object):
             if nb_casualties < 10:
                 nb_casualties = min(10, factory.nb_cyborgs)
             factory.nb_cyborgs -= nb_casualties
-            factory.can_produce_after_turn = i_new_state.nb_turns + 5*2
+            factory.can_produce_after_turn = i_new_state.nb_turns + 5 * 2
             factory.probable_bomb_target = None
             for it_factory in i_new_state.factories:
-                if i_new_state.factories[it_factory].probable_bomb_target is not None and i_new_state.factories[it_factory].probable_bomb_target[0] == it_arriving:
+                if i_new_state.factories[it_factory].probable_bomb_target is not None and \
+                                i_new_state.factories[it_factory].probable_bomb_target[0] == it_arriving:
                     i_new_state.factories[it_factory].probable_bomb_target = None
             i_new_state.bombs[it_arriving].exploded = True
-
-
 
     def is_end_of_game(self, i_new_state):
 
@@ -432,7 +428,13 @@ class State(object):
     Attributes are dictionnaries.
     """
 
-    def __init__(self, i_factories = {}, i_troops = {}, i_bombs = {}, i_nb_turns = 0):
+    def __init__(self, i_factories=None, i_troops=None, i_bombs=None, i_nb_turns=0):
+        if i_bombs is None:
+            i_bombs = {}
+        if i_troops is None:
+            i_troops = {}
+        if i_factories is None:
+            i_factories = {}
         self.factories = i_factories
         self.troops = i_troops
         self.bombs = i_bombs
@@ -462,7 +464,8 @@ class State(object):
             if other_active_bombs[it_bomb].exploded:
                 del other_active_bombs[it_bomb]
 
-        dictionnaries = [(self.factories, other.factories), (self.troops, other.troops), (self_active_bombs, other_active_bombs)]
+        dictionnaries = [(self.factories, other.factories), (self.troops, other.troops),
+                         (self_active_bombs, other_active_bombs)]
 
         for it_dictionnaries in range(len(dictionnaries)):
             dico = dictionnaries[it_dictionnaries]
@@ -473,7 +476,7 @@ class State(object):
                 print("other.dico: \n{0}".format("\n".join([str(dico[1][key]) for key in sorted(dico[1].keys())])))
                 return False
 
-            self_keys = list(dico[0].keys()) # compatibility for python 3.+
+            self_keys = list(dico[0].keys())  # compatibility for python 3.+
             other_keys = list(dico[1].keys())
             for entity_self_id in dico[0]:
                 if entity_self_id in dico[1]:
@@ -496,7 +499,7 @@ class State(object):
                     print("No match found for self id: " + self_key)
                     return False
 
-            # check remaining elements
+                    # check remaining elements
 
         return self.nb_turns == other.nb_turns
 
@@ -547,10 +550,7 @@ class State(object):
         return projected_factories
 
 
-
-
 class AI(object):
-
     def __init__(self):
         pass
 
@@ -575,12 +575,12 @@ class AI(object):
         pass
 
 
-
 # ###############################################################################################
 # FUNCTIONS
 # ###############################################################################################
 def log(i_text):
     print(str(i_text), file=sys.stderr)
+
 
 def score_factory(network, state, i_source_factory_id, i_target_factory_id, i_TroopBombBoolean):
     target_factory = state.factories[i_target_factory_id]
@@ -598,7 +598,8 @@ def score_factory(network, state, i_source_factory_id, i_target_factory_id, i_Tr
     else:
         iScore = target_production * distance
 
-    return  iScore
+    return iScore
+
 
 def select_actions(network, state):
     res = []
@@ -610,9 +611,11 @@ def select_actions(network, state):
                 for node_2 in network.get_nodes():
                     factory_2 = state.factories[node_2]
                     if factory_2.player != 1:
-                        actions_factory_1.append((factory_1.id, factory_2.id, score_factory(network, state, factory_1.id, factory_2.id, True)))
-                best_action_factory_1 = max(actions_factory_1, key = lambda x: x[2])
-                res.append(OrderTroops(best_action_factory_1[0], best_action_factory_1[1], state.factories[best_action_factory_1[0]].nb_cyborgs))
+                        actions_factory_1.append((factory_1.id, factory_2.id,
+                                                  score_factory(network, state, factory_1.id, factory_2.id, True)))
+                best_action_factory_1 = max(actions_factory_1, key=lambda x: x[2])
+                res.append(OrderTroops(best_action_factory_1[0], best_action_factory_1[1],
+                                       state.factories[best_action_factory_1[0]].nb_cyborgs))
     else:
         actions_factory_0 = []
         for node_1 in network.get_nodes():
@@ -622,20 +625,22 @@ def select_actions(network, state):
                 for node_2 in network.get_nodes():
                     factory_2 = state.factories[node_2]
                     if factory_2.player != 1:
-                        actions_factory_1.append((factory_1.id, factory_2.id, score_factory(network, state, factory_1.id, factory_2.id, True)))
-                        actions_factory_0.append((factory_1.id, factory_2.id, score_factory(network, state, factory_1.id, factory_2.id, False)))
-                best_action_factory_1 = max(actions_factory_1, key = lambda x: x[2])
-                res.append(OrderTroops(best_action_factory_1[0], best_action_factory_1[1], state.factories[best_action_factory_1[0]].nb_cyborgs))
+                        actions_factory_1.append((factory_1.id, factory_2.id,
+                                                  score_factory(network, state, factory_1.id, factory_2.id, True)))
+                        actions_factory_0.append((factory_1.id, factory_2.id,
+                                                  score_factory(network, state, factory_1.id, factory_2.id, False)))
+                best_action_factory_1 = max(actions_factory_1, key=lambda x: x[2])
+                res.append(OrderTroops(best_action_factory_1[0], best_action_factory_1[1],
+                                       state.factories[best_action_factory_1[0]].nb_cyborgs))
         if actions_factory_0:
-            best_action_factory_0 = max(actions_factory_0, key = lambda x:x[2])
-            if (best_action_factory_0[2] > 16) :
+            best_action_factory_0 = max(actions_factory_0, key=lambda x: x[2])
+            if (best_action_factory_0[2] > 16):
                 res.append(OrderBomb(best_action_factory_0[0], best_action_factory_0[1]))
 
     if not res:
         res.append(OrderWait())
-    #log(res)
+    # log(res)
     return res
-
 
 
 def launch_bomb(i_network, i_state):
@@ -653,13 +658,15 @@ def launch_bomb(i_network, i_state):
         max_factory_cyborgs = 0
         for it_factory in projected_factories:
             factory = i_state.factories[it_factory]
-            if factory.player == -1 and factory.production > 0 and projected_factories[it_factory][-1] > max_factory_cyborgs and projected_factories[it_factory][-1] > projected_factories[it_factory][1]:
+            if factory.player == -1 and factory.production > 0 and projected_factories[it_factory][
+                -1] > max_factory_cyborgs and projected_factories[it_factory][-1] > projected_factories[it_factory][1]:
                 max_factoy_id = it_factory
                 max_factory_cyborgs = projected_factories[it_factory][-1]
         return [OrderBomb(i_state.factories[max_factoy_id].closest_opponent_factory(i_network, i_state), max_factoy_id)]
 
     if i_state.nb_bombs_launched()[1] == 1:
         return []
+
 
 def arrival_scheme(i_state):
     """
@@ -682,9 +689,10 @@ def arrival_scheme(i_state):
     for it_factory in factories:
         sorted_turns = sorted(factories[it_factory].keys())
         for it_turns in range(1, len(sorted_turns), 1):
-            factories[it_factory][sorted_turns[it_turn]] += factories[it_factory][sorted_turns[it_turn - 1]]
+            factories[it_factory][sorted_turns[it_turns]] += factories[it_factory][sorted_turns[it_turns - 1]]
 
     return factories
+
 
 def needed_cyborgs(i_state, i_arrival_scheme):
     """
@@ -699,7 +707,8 @@ def needed_cyborgs(i_state, i_arrival_scheme):
             continue
         current_cyborgs = i_state.factories[it_factory].nb_cyborgs
         for it_turn in i_arrival_scheme[it_factory]:
-            i_arrival_scheme[it_factory][it_turn] = i_state.factories[it_factory].production * it_turn + i_arrival_scheme[it_factory][it_turn]
+            i_arrival_scheme[it_factory][it_turn] = i_state.factories[it_factory].production * it_turn + \
+                                                    i_arrival_scheme[it_factory][it_turn]
 
     needed = {}
     for it_factory in i_arrival_scheme:
@@ -730,6 +739,7 @@ def increase_prod():
 
     pass
 
+
 def attack_planet():
     """
     Attack a planet from the openent if:
@@ -737,11 +747,13 @@ def attack_planet():
     """
     pass
 
+
 def colonize_planet():
     """
     Colonize a neutral planet if:
     -
     """
+
 
 def defend_planet(i_network, i_state, i_needed_cyborgs):
     """
@@ -749,8 +761,8 @@ def defend_planet(i_network, i_state, i_needed_cyborgs):
     - not probable target of a bomb
     """
 
-
     pass
+
 
 def flag_probable_bomb_planet(i_network, i_state):
     """
@@ -767,9 +779,8 @@ def flag_probable_bomb_planet(i_network, i_state):
                     max_factory_cyborgs = factory.nb_cyborgs
                     max_factoy_id = it_factory
             if max_factoy_id is not None:
-                i_state.factories[max_factoy_id].probable_bomb_target = (it_bomb, i_network.get_edge_weight(bomb.origin, max_factoy_id))
-
-
+                i_state.factories[max_factoy_id].probable_bomb_target = (
+                it_bomb, i_network.get_edge_weight(bomb.origin, max_factoy_id))
 
 
 # ###############################################################################################
@@ -793,7 +804,7 @@ def main():
     # game loop
     while True:
         # input parsing
-        nb_turns+=1
+        nb_turns += 1
         factories = {}
         troops = {}
         bombs = {}
@@ -834,11 +845,10 @@ def main():
         actions = select_actions(network, state)
         answer = ";".join([str(action) for action in actions])
 
-        nb_turns+=1
+        nb_turns += 1
         print(answer)
 
 
 # to run all tests
 if __name__ == "__main__":
     main()
-
