@@ -326,15 +326,15 @@ class GameController(object):
                 if factory.player == i_player_id and it_order.nb_troops > 0:
                     current_troops = it_order.nb_troops if it_order.nb_troops < factory.nb_cyborgs else factory.nb_cyborgs
                     distance = self.network.get_edge_weight(it_order.origin, it_order.destination)
-                    new_id = uuid.uuid4()
+                    new_id = str(uuid.uuid4())
                     i_new_state.troops[new_id] = Troop(new_id, i_player_id, it_order.origin, it_order.destination, current_troops, distance)
                     factory.nb_cyborgs -= current_troops
             elif isinstance(it_order, OrderBomb):
                 factory = i_new_state.factories[it_order.origin]
                 if factory.player == i_player_id and i_new_state.nb_bombs_launched()[i_player_id] < 2:
                     distance = self.network.get_edge_weight(it_order.origin, it_order.destination)
-                    new_id = uuid.uuid4()
-                    i_new_state.bombs[new_id] = Bomb(uuid.uuid4(), i_player_id, it_order.origin, it_order.destination, distance)
+                    new_id = str(uuid.uuid4())
+                    i_new_state.bombs[new_id] = Bomb(new_id, i_player_id, it_order.origin, it_order.destination, distance)
             elif isinstance(it_order, OrderIncrease):
                 factory = i_new_state.factories[it_order.origin]
                 if factory.player == i_player_id and factory.production < 3 and factory.nb_cyborgs >= 10:
