@@ -391,7 +391,7 @@ class GameController(object):
             if nb_casualties < 10:
                 nb_casualties = min(10, factory.nb_cyborgs)
             factory.nb_cyborgs -= nb_casualties
-            factory.can_produce_after_turn = i_new_state.nb_turns + 5 * 2
+            factory.can_produce_after_turn = i_new_state.nb_turns + 5
             factory.probable_bomb_target = None
             for it_factory in i_new_state.factories:
                 if i_new_state.factories[it_factory].probable_bomb_target is not None and \
@@ -401,7 +401,7 @@ class GameController(object):
 
     def is_end_of_game(self, i_new_state):
 
-        if i_new_state.nb_turns == 200:
+        if i_new_state.nb_turns == 50:
             return True
         nb_entities = i_new_state.count_player_entities()
         return nb_entities[1] == 0 or nb_entities[-1] == 0
@@ -414,7 +414,6 @@ class GameController(object):
         self.move_existing_entities(new_state)
         new_state.nb_turns += 1
         self.execute_player_orders(new_state, 1, i_action_plan_player_1)
-        new_state.nb_turns += 1
         self.execute_player_orders(new_state, -1, i_action_plan_player_minus_1)
         self.generate_troops(new_state)
         self.play_fights(new_state)
@@ -799,7 +798,7 @@ def main():
     # log
     log(network)
 
-    nb_turns = 1
+    nb_turns = 0
     state = State()
     # game loop
     while True:

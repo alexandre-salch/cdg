@@ -1,7 +1,7 @@
 from __future__ import print_function
 import sys
 import unittest
-from league_bois_1 import Entity, Factory, Troop, Bomb, State, Graph, Order, GameController
+from league_bois_1.league_bois_1 import Entity, Factory, Troop, Bomb, State, Graph, Order, GameController
 import ast
 
 OUTPUT = sys.stdout
@@ -31,7 +31,7 @@ turn_2_player_1 = "MOVE 1 5 26"
 
 turn_2_player_minus_1 = "MOVE 2 4 5;INC 2;BOMB 2 1"
 
-turn_4 = """nb turns: 4
+turn_4 = """nb turns: 3
 Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
 Factory id: 1; player: 1; nb_cyborgs: 1; production: 1
 Factory id: 2; player: -1; nb_cyborgs: 13; production: 2
@@ -124,7 +124,7 @@ turn_32_player_1 = "MOVE 1 7 1;MOVE 5 7 0;MOVE 9 7 14;MOVE 11 7 1"
 
 turn_32_player_minus_1 = "MOVE 8 5 7;MOVE 0 5 5;MOVE 12 5 3;MOVE 2 5 2;MOVE 10 5 2"
 
-turn_34 = """nb turns: 34
+turn_34 = """nb turns: 33
 Factory id: 0; player: -1; nb_cyborgs: 3; production: 0
 Factory id: 1; player: 1; nb_cyborgs: 0; production: 1
 Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
@@ -366,7 +366,10 @@ class EndToEnd(unittest.TestCase):
                 print("simulated can produce after turn: " + str(simulated_states[it_state+1].factories["1"].can_produce_after_turn))
                 print("stored can produce after turn: " + str(states[it_state+1].factories["1"].can_produce_after_turn))
 
-                self.assertFalse(is_game_finished)
+                if simulated_states[it_state+1].nb_turns == 50:
+                    self.assertTrue(is_game_finished, "game should not be over {0}".format(states[it_state + 1].nb_turns))
+                else:
+                    self.assertFalse(is_game_finished, "game should be over {0}".format(states[it_state + 1].nb_turns))
                 self.assertEqual(states[it_state+1], simulated_states[it_state+1])
 
 
