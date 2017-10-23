@@ -343,15 +343,15 @@ class GameController(object):
                 if factory.player == i_player_id and it_order.nb_troops > 0:
                     current_troops = it_order.nb_troops if it_order.nb_troops < factory.nb_cyborgs else factory.nb_cyborgs
                     distance = self.network.get_edge_weight(it_order.origin, it_order.destination)
-                    new_id = uuid.uuid4()
+                    new_id = str(uuid.uuid4())
                     i_new_state.troops[new_id] = Troop(new_id, i_player_id, it_order.origin, it_order.destination, current_troops, distance, i_new_state.nb_turns)
                     factory.nb_cyborgs -= current_troops
             elif isinstance(it_order, OrderBomb):
                 factory = i_new_state.factories[it_order.origin]
                 if factory.player == i_player_id and i_new_state.nb_bombs_launched()[i_player_id] < 2:
                     distance = self.network.get_edge_weight(it_order.origin, it_order.destination)
-                    new_id = uuid.uuid4()
-                    i_new_state.bombs[new_id] = Bomb(uuid.uuid4(), i_player_id, it_order.origin, it_order.destination, distance, i_new_state.nb_turns)
+                    new_id = str(uuid.uuid4())
+                    i_new_state.bombs[new_id] = Bomb(new_id, i_player_id, it_order.origin, it_order.destination, distance, i_new_state.nb_turns)
             elif isinstance(it_order, OrderIncrease):
                 factory = i_new_state.factories[it_order.origin]
                 if factory.player == i_player_id and factory.production < 3 and factory.nb_cyborgs >= 10:
@@ -602,7 +602,6 @@ def score_factory(network, state, i_source_factory_id, i_target_factory_id, i_Tr
 
 def select_actions(network, state):
     res = []
-    log(state.nb_bombs_launched()[1])
     if state.nb_bombs_launched()[1] > 1:
         for node_1 in network.get_nodes():
             factory_1 = state.factories[node_1]
@@ -623,20 +622,14 @@ def select_actions(network, state):
                 for node_2 in network.get_nodes():
                     factory_2 = state.factories[node_2]
                     if factory_2.player != 1:
-                        score_bomb = score_factory(network, state, factory_1.id, factory_2.id, False)
                         actions_factory_1.append((factory_1.id, factory_2.id, score_factory(network, state, factory_1.id, factory_2.id, True)))
                         actions_factory_0.append((factory_1.id, factory_2.id, score_factory(network, state, factory_1.id, factory_2.id, False)))
                 best_action_factory_1 = max(actions_factory_1, key = lambda x: x[2])
                 res.append(OrderTroops(best_action_factory_1[0], best_action_factory_1[1], state.factories[best_action_factory_1[0]].nb_cyborgs))
         if actions_factory_0:
             best_action_factory_0 = max(actions_factory_0, key = lambda x:x[2])
-            res.append(OrderBomb(best_action_factory_0[0], best_action_factory_0[1]))
-            new_res = []
-            for it_action_factory in res:
-                orderTroop = it_action_factory
-                if orderTroop.destination != best_action_factory_0[1]: # can adjsuted if take into account the distance
-                    new_res.append(it_action_factory)
-            res = new_res
+            if (best_action_factory_0[2] > 16) :
+                res.append(OrderBomb(best_action_factory_0[0], best_action_factory_0[1]))
 
     if not res:
         res.append(OrderWait())
