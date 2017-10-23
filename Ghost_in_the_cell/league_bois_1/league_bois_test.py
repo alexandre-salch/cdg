@@ -190,7 +190,7 @@ def parse_state(i_str):
             nb_turns = int(line.split(": ")[1])
             continue
 
-        entity = Entity.parse(line)
+        entity = Entity.parse(line, nb_turns)
         if isinstance(entity, Factory):
             factories[entity.id] = entity
         elif isinstance(entity, Troop):
