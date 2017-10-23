@@ -228,7 +228,8 @@ class Bomb(Entity):
 
     def __eq__(self, other):
         """
-        Destination and nb_turns shouldn't be taken into account, since we don't have this information for the other player.
+        Destination and nb_turns shouldn't be taken into account, since we don't have this information for the other
+        player.
         """
         if not isinstance(other, Bomb):
             return False
