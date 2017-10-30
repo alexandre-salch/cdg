@@ -134,13 +134,13 @@ class Entity(object):
 
     @staticmethod
     def parse(i_str, turn):
-        splited_str = [field.split(": ")[1] for field in i_str.split("; ")]
+        splitted_str = [field.split(": ")[1] for field in i_str.split("; ")]
         if i_str.startswith("Factory"):
-            return Factory.parse(splited_str, turn)
+            return Factory.parse(splitted_str, turn)
         elif i_str.startswith("Troop"):
-            return Troop.parse(splited_str, turn)
+            return Troop.parse(splitted_str, turn)
         elif i_str.startswith("Bomb"):
-            return Bomb.parse(splited_str, turn)
+            return Bomb.parse(splitted_str, turn)
         return None
 
 
@@ -163,7 +163,8 @@ class Factory(Entity):
     def __eq__(self, other):
         if not isinstance(other, Factory):
             return False
-        return self.player == other.player and self.nb_cyborgs == other.nb_cyborgs and self.production == other.production
+        return self.player == other.player and self.nb_cyborgs == other.nb_cyborgs \
+            and self.production == other.production
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -203,7 +204,8 @@ class Troop(Entity):
     def __eq__(self, other):
         if not isinstance(other, Troop):
             return False
-        return self.player == other.player and self.origin == other.origin and self.destination == other.destination and self.nb_cyborgs == other.nb_cyborgs and self.nb_turns == other.nb_turns
+        return self.player == other.player and self.origin == other.origin and self.destination == other.destination \
+               and self.nb_cyborgs == other.nb_cyborgs and self.nb_turns == other.nb_turns
 
     def __ne__(self, other):
         return not self.__eq__(other)
@@ -425,7 +427,7 @@ class GameController(object):
 class State(object):
     """
     Must be immutable.
-    Attributes are dictionnaries.
+    Attributes are dictionaries.
     """
 
     def __init__(self, i_factories=None, i_troops=None, i_bombs=None, i_nb_turns=0):
@@ -464,14 +466,14 @@ class State(object):
             if other_active_bombs[it_bomb].exploded:
                 del other_active_bombs[it_bomb]
 
-        dictionnaries = [(self.factories, other.factories), (self.troops, other.troops),
-                         (self_active_bombs, other_active_bombs)]
+        dictionaries = [(self.factories, other.factories), (self.troops, other.troops),
+                        (self_active_bombs, other_active_bombs)]
 
-        for it_dictionnaries in range(len(dictionnaries)):
-            dico = dictionnaries[it_dictionnaries]
+        for it_dictionaries in range(len(dictionaries)):
+            dico = dictionaries[it_dictionaries]
 
             if len(dico[0]) != len(dico[1]):
-                print("Different dico size: {0}".format(it_dictionnaries))
+                print("Different dico size: {0}".format(it_dictionaries))
                 print("self.dico: \n{0}".format("\n".join([str(dico[0][key]) for key in sorted(dico[0].keys())])))
                 print("other.dico: \n{0}".format("\n".join([str(dico[1][key]) for key in sorted(dico[1].keys())])))
                 return False
@@ -506,7 +508,7 @@ class State(object):
     def nb_bombs_launched(self):
         nb_bombs = {1: 0, -1: 0}
         for it_bomb in self.bombs:
-            nb_bombs[it_bomb.player] += 1
+            nb_bombs[self.bombs[it_bomb].player] += 1
         return nb_bombs
 
     def get_troops_arriving(self):
@@ -589,16 +591,13 @@ def score_factory(network, state, i_source_factory_id, i_target_factory_id, i_Tr
     distance = network.get_edge_weight(i_source_factory_id, i_target_factory_id)
     source_factory = state.factories[i_source_factory_id]
     source_nb_cyborgs = source_factory.nb_cyborgs
-    source_production = source_factory.production
 
     diff_troops_at_arrival = source_nb_cyborgs - target_nb_cyborgs - target_production * distance
 
     if i_TroopBombBoolean:
-        iScore = target_factory.production + diff_troops_at_arrival - distance
+        return target_factory.production + diff_troops_at_arrival - distance
     else:
-        iScore = target_production * distance
-
-    return iScore
+        return target_production * distance
 
 
 def select_actions(network, state):
@@ -629,12 +628,13 @@ def select_actions(network, state):
                                                   score_factory(network, state, factory_1.id, factory_2.id, True)))
                         actions_factory_0.append((factory_1.id, factory_2.id,
                                                   score_factory(network, state, factory_1.id, factory_2.id, False)))
-                best_action_factory_1 = max(actions_factory_1, key=lambda x: x[2])
-                res.append(OrderTroops(best_action_factory_1[0], best_action_factory_1[1],
-                                       state.factories[best_action_factory_1[0]].nb_cyborgs))
+                if actions_factory_1:
+                    best_action_factory_1 = max(actions_factory_1, key=lambda x: x[2])
+                    res.append(OrderTroops(best_action_factory_1[0], best_action_factory_1[1],
+                                           state.factories[best_action_factory_1[0]].nb_cyborgs))
         if actions_factory_0:
             best_action_factory_0 = max(actions_factory_0, key=lambda x: x[2])
-            if (best_action_factory_0[2] > 16):
+            if best_action_factory_0[2] > 16:
                 res.append(OrderBomb(best_action_factory_0[0], best_action_factory_0[1]))
 
     if not res:
@@ -647,34 +647,39 @@ def launch_bomb(i_network, i_state):
     """
     Launch a bomb:
     - never launch the first turn, wait and see
-    - the second turn targetting the planet of the opponent with prod >= 1 and max cyborgs
+    - the second turn targeting the planet of the opponent with prod >= 1 and max cyborgs
     - the next planet from the opponent with a prod >= 2
     """
-    if i_state.nb_turns == 2:
+    if i_state.nb_turns == 1:
         return []
-    if i_state.nb_bombs_launched()[1] == 0:
+    if i_state.nb_bombs_launched()[1] == 0 or i_state.nb_bombs_launched()[1] == 1:
+        production_threshold = i_state.nb_bombs_launched()[1]
         projected_factories = i_state.project_troops()
-        max_factoy_id = ""
+        max_factory_id = ""
         max_factory_cyborgs = 0
         for it_factory in projected_factories:
             factory = i_state.factories[it_factory]
-            if factory.player == -1 and factory.production > 0 and projected_factories[it_factory][
+            if factory.player == -1 and factory.production > production_threshold and projected_factories[it_factory][
                 -1] > max_factory_cyborgs and projected_factories[it_factory][-1] > projected_factories[it_factory][1]:
-                max_factoy_id = it_factory
+                max_factory_id = it_factory
                 max_factory_cyborgs = projected_factories[it_factory][-1]
-        return [OrderBomb(i_state.factories[max_factoy_id].closest_opponent_factory(i_network, i_state), max_factoy_id)]
+        if max_factory_id != "":
+            our_closest_planet = i_state.factories[max_factory_id].closest_opponent_factory(i_network, i_state)
+            if our_closest_planet is not None:
+                return [OrderBomb(our_closest_planet, max_factory_id)]
 
-    if i_state.nb_bombs_launched()[1] == 1:
-        return []
+    return []
 
 
 def arrival_scheme(i_state):
     """
-    Returns dico with
+    Returns dictionary with
     - key: factory id
-    - value: number of troops arriving
-      - if > 0 our troops
-      - if < 0 opponent troops
+    - value: dictionary with
+        - key: arrival turn
+        - value: number of troops arriving
+            - if > 0 our troops
+            - if < 0 opponent troops
     """
     factories = {}
     for it_troop in i_state.troops:
@@ -694,47 +699,108 @@ def arrival_scheme(i_state):
     return factories
 
 
-def needed_cyborgs(i_state, i_arrival_scheme):
+def production_and_arrival_scheme(i_state):
     """
-    Returns dico with
+    Returns dictionary with
+    - key: factory id
+    - value: dictionary with
+        - key: arrival turn
+        - value: number of troops present on the planet considering current troops, arrivals and production
+            - if > 0 our troops
+            - if < 0 opponent troops
+    """
+    arrivals = arrival_scheme(i_state)
+    for it_factory in arrivals:
+        if i_state.factories[it_factory].player == 1:
+            factory_player = 1
+        else:
+            factory_player = -1
+        current_cyborgs = factory_player * i_state.factories[it_factory].nb_cyborgs
+        for it_turns in arrivals[it_factory]:
+            arrivals[it_factory][it_turns] += current_cyborgs + \
+                                              (i_state.factories[it_factory].player *
+                                               i_state.factories[it_factory].production * it_turns)
+    return arrivals
+
+
+def needed_cyborgs(i_state):
+    """
+    Returns dictionary with
     - key: factory id
     - value:
-      - if > 0: number of cyborgs to be sent to this factory
+      - if > 0: number of cyborgs to be sent to this factory (to attack or to defend)
       - if < 0: number of cyborgs that can be used from this factory
+    -> the weakest of our planet is the one with the minimum number of cyborgs
+    -> the weakest of their planet is the one with the maximum number of cyborgs
     """
-    for it_factory in i_arrival_scheme:
-        if i_state.factories[it_factory].player != 1:
-            continue
-        current_cyborgs = i_state.factories[it_factory].nb_cyborgs
-        for it_turn in i_arrival_scheme[it_factory]:
-            i_arrival_scheme[it_factory][it_turn] = i_state.factories[it_factory].production * it_turn + \
-                                                    i_arrival_scheme[it_factory][it_turn]
 
+    arrivals = production_and_arrival_scheme(i_state)
     needed = {}
-    for it_factory in i_arrival_scheme:
-        if i_state.factories[it_factory].player != 1:
-            continue
+    for it_factory in arrivals:
         min_cyborgs = 100000
         min_turn = None
-        for it_turn in i_arrival_scheme[it_factory]:
-            if i_arrival_scheme[it_factory][it_turn] < min_cyborgs:
-                min_cyborgs = i_arrival_scheme[it_factory][it_turn]
+        for it_turn in arrivals[it_factory]:
+            if arrivals[it_factory][it_turn] < min_cyborgs:
+                min_cyborgs = arrivals[it_factory][it_turn]
                 min_turn = it_turn
         needed[it_factory] = (1 - min_cyborgs, min_turn)
 
     for it_factory in i_state.factories:
         if i_state.factories[it_factory].player == 1:
-            if it_factory not in i_arrival_scheme or i_state.factories[it_factory].probable_bomb_target is not None:
-                needed[it_factory] = -i_state.factories[it_factory].nb_cyborgs
+            if it_factory not in arrivals or i_state.factories[it_factory].probable_bomb_target is not None:
+                needed[it_factory] = (-i_state.factories[it_factory].nb_cyborgs, 1)
 
     return needed
+
+
+def cost_to_increase_prod(i_state, i_needed_cyborgs):
+    """
+    Cost in number of cyborgs to increase the production on any of the planet.
+    :param i_state:
+    :return: dictionary with
+      - key = factory id
+      - value = [(cost in nb of cyborgs, production gain)]
+    """
+    costs = {}
+    for it_factory in i_state.factories:
+        current_needed = i_needed_cyborgs[it_factory][0] if it_factory in i_needed_cyborgs else 0
+        current_production = i_state.factories[it_factory].production
+        if current_needed > 0:
+            for it_productivity in range(0, 4 - current_production, 1):
+                needed_troops = current_needed + it_productivity * 10
+                target_production = current_production + it_productivity
+                score = target_production / needed_troops
+                if score not in costs:
+                    costs[score] = []
+                costs[score].append((it_factory, needed_troops, target_production))
+        else:
+            for it_productivity in range(1, 4 - current_production, 1):
+                needed_troops = it_productivity * 10
+                score = it_productivity / needed_troops
+                if score not in costs:
+                    costs[score] = []
+                costs[score].append((it_factory, it_productivity * 10, it_productivity))
+    return costs
+
+def count_total_available_troops(i_state, i_needed_cyborgs):
+    for it_factories in i_state.factories:
+        if i_state.factories[it_factories].player == 1:
+
+
+def closests_oponent_planets(i_network):
+    """
+    Returns a sorted list of
+    :param i_network:
+    :return:
+    """
+    pass
 
 
 def increase_prod():
     """
     Increase production if:
     - planet not probable target of bomb
-    - enough cyborgs to increase production and deffend from attacks
+    - enough cyborgs to increase production and defend from attacks
     """
 
     pass
@@ -772,15 +838,15 @@ def flag_probable_bomb_planet(i_network, i_state):
         bomb = i_state.bombs[it_bomb]
         if not bomb.exploded and bomb.player == -1 and bomb.turn_created == i_state.nb_turns:
             max_factory_cyborgs = -1
-            max_factoy_id = None
+            max_factory_id = None
             for it_factory in i_state.factories:
                 factory = i_state.factories[it_factory]
                 if factory.player == 1 and factory.nb_cyborgs > max_factory_cyborgs:
                     max_factory_cyborgs = factory.nb_cyborgs
-                    max_factoy_id = it_factory
-            if max_factoy_id is not None:
-                i_state.factories[max_factoy_id].probable_bomb_target = (
-                it_bomb, i_network.get_edge_weight(bomb.origin, max_factoy_id))
+                    max_factory_id = it_factory
+            if max_factory_id is not None:
+                i_state.factories[max_factory_id].probable_bomb_target = (
+                    it_bomb, i_network.get_edge_weight(bomb.origin, max_factory_id))
 
 
 # ###############################################################################################

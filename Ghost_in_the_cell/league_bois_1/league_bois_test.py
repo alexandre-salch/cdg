@@ -1,7 +1,8 @@
 from __future__ import print_function
 import sys
 import unittest
-from league_bois_1.league_bois_1 import Entity, Factory, Troop, Bomb, State, Graph, Order, GameController
+from league_bois_1 import Entity, Factory, Troop, Bomb, State, Graph, Order, GameController
+from league_bois_1 import launch_bomb, arrival_scheme, production_and_arrival_scheme, needed_cyborgs, cost_to_increase_prod
 import ast
 
 OUTPUT = sys.stdout
@@ -372,6 +373,78 @@ class EndToEnd(unittest.TestCase):
                     self.assertFalse(is_game_finished, "game should be over {0}".format(states[it_state + 1].nb_turns))
                 self.assertEqual(states[it_state+1], simulated_states[it_state+1])
 
+
+class LaunchBombTest(unittest.TestCase):
+
+    file = "game_logs.log"
+
+    def test(self):
+
+        with open(self.file, 'r') as f:
+            network, states, order_player_1, order_player_minus_1 = parse_log_file(f)
+            simulated_states = [states[0]]
+            for it_state in range(len(states)-1):
+                # if it_state == 9:
+
+                _, simulated_next_state, _ = one_turn_test_function(network, simulated_states[it_state], order_player_1[it_state], order_player_minus_1[it_state])
+                update_entities_id(simulated_next_state, states[it_state+1])
+                simulated_states.append(simulated_next_state)
+
+                print("state " + str(it_state) + ": " + "\n".join([str(states[it_state])]))
+                bomb_order = launch_bomb(network, simulated_states[it_state])
+                print("bomb order :" + " ; ".join([str(order) for order in bomb_order]))
+
+
+class ArrivalSchemeTest(unittest.TestCase):
+
+    file = "game_logs.log"
+
+    def test(self):
+
+        with open(self.file, 'r') as f:
+            network, states, order_player_1, order_player_minus_1 = parse_log_file(f)
+            simulated_states = [states[0]]
+            for it_state in range(len(states)-1):
+                # if it_state == 9:
+
+                _, simulated_next_state, _ = one_turn_test_function(network, simulated_states[it_state], order_player_1[it_state], order_player_minus_1[it_state])
+                update_entities_id(simulated_next_state, states[it_state+1])
+                simulated_states.append(simulated_next_state)
+
+                arrival_scheme(simulated_states[it_state])
+
+                print("state " + str(it_state) + ": " + "\n".join([str(states[it_state])]))
+                arrivals = arrival_scheme(simulated_states[it_state])
+                print("arrivals :")
+                print("\n".join(["  " + str(it_factory) + " --> " + " ; ".join([str(it_turn) + " -- " + str(arrivals[it_factory][it_turn]) for it_turn in arrivals[it_factory]]) for it_factory in arrivals]))
+
+
+class ProductionAndArrivalSchemeTest(unittest.TestCase):
+
+    file = "game_logs.log"
+
+    def test(self):
+
+        with open(self.file, 'r') as f:
+            network, states, order_player_1, order_player_minus_1 = parse_log_file(f)
+            simulated_states = [states[0]]
+            for it_state in range(len(states)-1):
+                # if it_state == 9:
+
+                _, simulated_next_state, _ = one_turn_test_function(network, simulated_states[it_state], order_player_1[it_state], order_player_minus_1[it_state])
+                update_entities_id(simulated_next_state, states[it_state+1])
+                simulated_states.append(simulated_next_state)
+
+                print("state " + str(it_state) + ": " + "\n".join([str(states[it_state])]))
+                arrivals = production_and_arrival_scheme(simulated_states[it_state])
+                needed = needed_cyborgs(simulated_states[it_state])
+                cost = cost_to_increase_prod(simulated_states[it_state])
+                print("production arrivals :")
+                print("\n".join(["  " + str(it_factory) + " --> " + " ; ".join([str(it_turn) + " -- " + str(arrivals[it_factory][it_turn]) for it_turn in arrivals[it_factory]]) for it_factory in arrivals]))
+                print("needed cyborgs :")
+                print("\n".join(["  " + str(it_factory) + " --> nb cyborgs: " + str(needed[it_factory][0]) + " in " + str(needed[it_factory][1]) + " turns" for it_factory in needed]))
+                print("cost to increase prod :")
+                print("\n".join(["  fact: " + str(it_factory[0]) + " needed: " + str(it_factory[1]) + " prod: " + str(it_factory[2]) for it_cost in sorted(cost.keys(), reverse=True) for it_factory in cost[it_cost]]))
 
 
 # to run all tests
