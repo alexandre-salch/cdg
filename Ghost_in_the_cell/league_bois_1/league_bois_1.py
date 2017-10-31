@@ -59,13 +59,13 @@ class Graph:
         try:
             self.edges[i_node1_id]
         except KeyError:
-            log("Graph." + i_fun_name + ": ERROR: node_id " + str(i_node1_id) + " doesn't exist.")
+            log("Graph." + i_fun_name + ": ERROR: node_id " + repr(i_node1_id) + " doesn't exist.")
             traceback.print_stack()
             raise KeyError
         try:
             self.edges[i_node1_id][i_node2_id]
         except KeyError:
-            log("Graph." + i_fun_name + ": ERROR: node_id " + str(i_node2_id) + " doesn't exist.")
+            log("Graph." + i_fun_name + ": ERROR: node_id " + repr(i_node2_id) + " doesn't exist.")
             traceback.print_stack()
             raise KeyError
 
@@ -708,30 +708,36 @@ def production_and_arrival_scheme(i_state):
         - value: number of troops present on the planet considering current troops, arrivals and production
             - if > 0 our troops
             - if < 0 opponent troops
+    -> the weakest of our planet is the one with the minimum number of cyborgs
+    -> the weakest of their planet is the one with the maximum number of cyborgs
     """
     arrivals = arrival_scheme(i_state)
-    for it_factory in arrivals:
-        if i_state.factories[it_factory].player == 1:
-            factory_player = 1
+    for it_factory in i_state.factories:
+        factory_player = i_state.factories[it_factory].player
+        current_cyborgs = factory_player * i_state.factories[it_factory].nb_cyborgs if factory_player != 0 else -i_state.factories[it_factory].nb_cyborgs
+        if it_factory in arrivals:
+            for it_turns in arrivals[it_factory]:
+                arrivals[it_factory][it_turns] += current_cyborgs + \
+                                                  (i_state.factories[it_factory].player *
+                                                   i_state.factories[it_factory].production * it_turns)
         else:
-            factory_player = -1
-        current_cyborgs = factory_player * i_state.factories[it_factory].nb_cyborgs
-        for it_turns in arrivals[it_factory]:
-            arrivals[it_factory][it_turns] += current_cyborgs + \
-                                              (i_state.factories[it_factory].player *
-                                               i_state.factories[it_factory].production * it_turns)
+            NB_TURNS = 10
+            arrivals[it_factory] = {}
+            arrivals[it_factory][NB_TURNS] = current_cyborgs + \
+                                             (i_state.factories[it_factory].player *
+                                              i_state.factories[it_factory].production * NB_TURNS)
+
     return arrivals
 
 
 def needed_cyborgs(i_state):
+
     """
     Returns dictionary with
     - key: factory id
     - value:
       - if > 0: number of cyborgs to be sent to this factory (to attack or to defend)
       - if < 0: number of cyborgs that can be used from this factory
-    -> the weakest of our planet is the one with the minimum number of cyborgs
-    -> the weakest of their planet is the one with the maximum number of cyborgs
     """
 
     arrivals = production_and_arrival_scheme(i_state)
@@ -756,35 +762,113 @@ def needed_cyborgs(i_state):
 def cost_to_increase_prod(i_state, i_needed_cyborgs):
     """
     Cost in number of cyborgs to increase the production on any of the planet.
-    :param i_state:
+    :param i_state, i_needed_cyborgs:
     :return: dictionary with
-      - key = factory id
-      - value = [(cost in nb of cyborgs, production gain)]
+      - key = score
+      - value = [(factory id, cost in nb of cyborgs, production gain)]
     """
     costs = {}
     for it_factory in i_state.factories:
+        if i_state.factories[it_factory].probable_bomb_target:
+            continue
         current_needed = i_needed_cyborgs[it_factory][0] if it_factory in i_needed_cyborgs else 0
         current_production = i_state.factories[it_factory].production
         if current_needed > 0:
-            for it_productivity in range(0, 4 - current_production, 1):
-                needed_troops = current_needed + it_productivity * 10
-                target_production = current_production + it_productivity
+            # for it_productivity in range(0, 4 - current_production, 1):
+            needed_troops = current_needed if current_production != 0 else current_needed + 10 #+ it_productivity * 10
+            target_production = current_production if current_production != 0 else 1 #+ it_productivity
+            score = target_production / needed_troops
+            if score not in costs:
+                costs[score] = []
+            costs[score].append((it_factory, needed_troops, target_production))
+        else:
+            if current_production < 3:
+            # for it_productivity in range(1, 4 - current_production, 1):
+                needed_troops = 10  # it_productivity * 10
+                target_production = current_production + 1
                 score = target_production / needed_troops
                 if score not in costs:
                     costs[score] = []
                 costs[score].append((it_factory, needed_troops, target_production))
-        else:
-            for it_productivity in range(1, 4 - current_production, 1):
-                needed_troops = it_productivity * 10
-                score = it_productivity / needed_troops
-                if score not in costs:
-                    costs[score] = []
-                costs[score].append((it_factory, it_productivity * 10, it_productivity))
     return costs
 
+
 def count_total_available_troops(i_state, i_needed_cyborgs):
+
+    total = 0
+    available_troops = {}
     for it_factories in i_state.factories:
         if i_state.factories[it_factories].player == 1:
+            if it_factories in i_needed_cyborgs and i_needed_cyborgs[it_factories][0] < 0:
+                current = min(i_state.factories[it_factories].nb_cyborgs, -i_needed_cyborgs[it_factories][0])
+                available_troops[it_factories] = current
+                total += current
+    return total, available_troops
+
+
+def rank_planets_by_distance(i_network, i_planet_id, i_available_planets):
+    """
+    Assumption: the network is complete
+    """
+    planets = [it_planet for it_planet in i_available_planets if it_planet != i_planet_id]
+    return sorted(planets, key=lambda x: i_network.get_edge_weight(i_planet_id, x))
+
+
+
+
+def send_troops(i_network, i_state, i_needed_cyborgs):
+
+    total_available, available = count_total_available_troops(i_state, i_needed_cyborgs)
+    cyborgs_cptr, selected_actions = select_best_actions(i_state, i_needed_cyborgs, total_available)
+    increase_candidate = candidate_planet_to_increase(i_state, selected_actions, available, cyborgs_cptr)
+
+    orders = []
+    for it_action in selected_actions:
+        dest_factory_id = it_action[0]
+        if dest_factory_id in increase_candidate:
+            orders.append(OrderIncrease(dest_factory_id))
+        else:
+            nb_cyborgs = it_action[1]
+            ranked_neighbours = rank_planets_by_distance(i_network, dest_factory_id, available.keys())
+            for neighbour in ranked_neighbours:
+                if nb_cyborgs == 0:
+                    break
+                if available[neighbour] == 0:
+                    continue
+                sending = min(nb_cyborgs, available[neighbour])
+                available[neighbour] -= sending
+                nb_cyborgs -= sending
+                orders.append(OrderTroops(neighbour, dest_factory_id, sending))
+
+    return orders
+
+
+def candidate_planet_to_increase(i_state, selected_actions, available, cyborgs_cptr):
+    increase_candidate = []
+    if i_state.nb_turns != 1:
+        for it_action in selected_actions:
+            factory = i_state.factories[it_action[0]]
+            if factory.player == 1 and factory.production != it_action[2] and available[it_action[0]] >= 10:
+                if cyborgs_cptr >= 0 or selected_actions.index(it_action) != len(selected_actions) - 1:
+                    increase_candidate.append(it_action[0])
+                    available[it_action[0]] -= 10
+
+    return increase_candidate
+
+
+def select_best_actions(i_state, i_needed_cyborgs, total_available):
+    cost_to_increase = cost_to_increase_prod(i_state, i_needed_cyborgs)
+    selected_actions = []
+    cyborgs_cptr = total_available
+    for it_cost in sorted(cost_to_increase.keys(), reverse=True):
+        for it_action in cost_to_increase[it_cost]:
+            if cyborgs_cptr >= 0:
+                selected_actions.append(it_action)
+                cyborgs_cptr -= it_action[1]
+            else:
+                break
+
+    return cyborgs_cptr, selected_actions
 
 
 def closests_oponent_planets(i_network):
@@ -908,8 +992,13 @@ def main():
         log(state)
 
         # Any valid action, such as "WAIT" or "MOVE source destination cyborgs"
-        actions = select_actions(network, state)
+        flag_probable_bomb_planet(network, state)
+        needed = needed_cyborgs(state)
+        actions = send_troops(network, state, needed)
+        actions.extend(launch_bomb(network, state))
         answer = ";".join([str(action) for action in actions])
+        if not answer:
+            answer = str(OrderWait())
 
         nb_turns += 1
         print(answer)

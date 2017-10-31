@@ -1,0 +1,720 @@
+Sortie d'erreur :
+Nodes: {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0}
+Edges: {0: {1: 3, 2: 3, 3: 3, 4: 3, 5: 2, 6: 2, 7: 8, 8: 8, 9: 7, 10: 7}, 1: {0: 3, 2: 8, 3: 1, 4: 7, 5: 5, 6: 4, 7: 7, 8: 10, 9: 5, 10: 11}, 2: {0: 3, 1: 8, 3: 7, 4: 1, 5: 4, 6: 5, 7: 10, 8: 7, 9: 11, 10: 5}, 3: {0: 3, 1: 1, 2: 7, 4: 7, 5: 3, 6: 5, 7: 4, 8: 11, 9: 3, 10: 12}, 4: {0: 3, 1: 7, 2: 1, 3: 7, 5: 5, 6: 3, 7: 11, 8: 4, 9: 12, 10: 3}, 5: {0: 2, 1: 5, 2: 4, 3: 3, 4: 5, 6: 6, 7: 5, 8: 11, 9: 6, 10: 10}, 6: {0: 2, 1: 4, 2: 5, 3: 5, 4: 3, 5: 6, 7: 11, 8: 5, 9: 10, 10: 6}, 7: {0: 8, 1: 7, 2: 10, 3: 4, 4: 11, 5: 5, 6: 11, 8: 17, 9: 2, 10: 16}, 8: {0: 8, 1: 10, 2: 7, 3: 11, 4: 4, 5: 11, 6: 5, 7: 17, 9: 16, 10: 2}, 9: {0: 7, 1: 5, 2: 11, 3: 3, 4: 12, 5: 6, 6: 10, 7: 2, 8: 16, 10: 16}, 10: {0: 7, 1: 11, 2: 5, 3: 12, 4: 3, 5: 10, 6: 6, 7: 16, 8: 2, 9: 16}}
+nb turns: 1
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 21; production: 1
+Factory id: 2; player: -1; nb_cyborgs: 21; production: 1
+Factory id: 3; player: 0; nb_cyborgs: 1; production: 2
+Factory id: 4; player: 0; nb_cyborgs: 1; production: 2
+Factory id: 5; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 6; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Sortie standard :
+MOVE 1 3 2;MOVE 1 4 2;MOVE 1 5 2;MOVE 1 6 2;INC 1;MOVE 1 7 3
+02
+45
+Sortie standard :
+MOVE 2 4 21;BOMB 2 1
+03
+45
+Sortie d'erreur :
+nb turns: 3
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 3; player: 0; nb_cyborgs: 1; production: 2
+Factory id: 4; player: 0; nb_cyborgs: 1; production: 2
+Factory id: 5; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 6; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 11; player: 1; origin: 1; destination: 3; nb_cyborgs: 2; nb_turns: 1
+Troop id: 12; player: 1; origin: 1; destination: 4; nb_cyborgs: 2; nb_turns: 7
+Troop id: 13; player: 1; origin: 1; destination: 5; nb_cyborgs: 2; nb_turns: 5
+Troop id: 14; player: 1; origin: 1; destination: 6; nb_cyborgs: 2; nb_turns: 4
+Troop id: 15; player: 1; origin: 1; destination: 7; nb_cyborgs: 3; nb_turns: 7
+Bomb id: 16; player: -1; origin: 2; destination: -1; nb_turns: -1
+Troop id: 17; player: -1; origin: 2; destination: 4; nb_cyborgs: 21; nb_turns: 1
+Sortie standard :
+MOVE 1 7 2;BOMB 1 2
+04
+45
+Sortie standard :
+WAIT
+05
+45
+Sortie d'erreur :
+nb turns: 5
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 1; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 20; production: 2
+Factory id: 5; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 6; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 12; player: 1; origin: 1; destination: 4; nb_cyborgs: 2; nb_turns: 5
+Troop id: 13; player: 1; origin: 1; destination: 5; nb_cyborgs: 2; nb_turns: 5
+Troop id: 14; player: 1; origin: 1; destination: 6; nb_cyborgs: 2; nb_turns: 5
+Troop id: 15; player: 1; origin: 1; destination: 7; nb_cyborgs: 3; nb_turns: 5
+Bomb id: 16; player: -1; origin: 2; destination: -1; nb_turns: -1
+Bomb id: 18; player: 1; origin: 1; destination: 2; nb_turns: 8
+Troop id: 19; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 7
+Sortie standard :
+MOVE 3 7 1;MOVE 1 7 2;BOMB 1 4
+06
+45
+Sortie standard :
+MOVE 4 6 20;MOVE 2 5 2
+07
+45
+Sortie d'erreur :
+nb turns: 7
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 6; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 12; player: 1; origin: 1; destination: 4; nb_cyborgs: 2; nb_turns: 7
+Troop id: 13; player: 1; origin: 1; destination: 5; nb_cyborgs: 2; nb_turns: 7
+Troop id: 14; player: 1; origin: 1; destination: 6; nb_cyborgs: 2; nb_turns: 7
+Troop id: 15; player: 1; origin: 1; destination: 7; nb_cyborgs: 3; nb_turns: 7
+Bomb id: 16; player: -1; origin: 2; destination: -1; nb_turns: -1
+Bomb id: 18; player: 1; origin: 1; destination: 2; nb_turns: 7
+Troop id: 19; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 7
+Bomb id: 20; player: 1; origin: 1; destination: 4; nb_turns: 7
+Troop id: 21; player: 1; origin: 3; destination: 7; nb_cyborgs: 1; nb_turns: 4
+Troop id: 22; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 7
+Troop id: 23; player: -1; origin: 4; destination: 6; nb_cyborgs: 20; nb_turns: 3
+Troop id: 24; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 4
+Sortie standard :
+MOVE 1 3 2
+08
+45
+Sortie standard :
+MOVE 4 6 2
+09
+45
+Sortie d'erreur :
+nb turns: 9
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 4; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 6; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 12; player: 1; origin: 1; destination: 4; nb_cyborgs: 2; nb_turns: 9
+Troop id: 13; player: 1; origin: 1; destination: 5; nb_cyborgs: 2; nb_turns: 9
+Troop id: 14; player: 1; origin: 1; destination: 6; nb_cyborgs: 2; nb_turns: 9
+Troop id: 15; player: 1; origin: 1; destination: 7; nb_cyborgs: 3; nb_turns: 9
+Bomb id: 16; player: -1; origin: 2; destination: -1; nb_turns: -1
+Bomb id: 18; player: 1; origin: 1; destination: 2; nb_turns: 6
+Troop id: 19; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 9
+Bomb id: 20; player: 1; origin: 1; destination: 4; nb_turns: 6
+Troop id: 21; player: 1; origin: 3; destination: 7; nb_cyborgs: 1; nb_turns: 9
+Troop id: 22; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 9
+Troop id: 23; player: -1; origin: 4; destination: 6; nb_cyborgs: 20; nb_turns: 9
+Troop id: 24; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 9
+Troop id: 25; player: 1; origin: 1; destination: 3; nb_cyborgs: 2; nb_turns: 1
+Troop id: 26; player: -1; origin: 4; destination: 6; nb_cyborgs: 2; nb_turns: 3
+Sortie standard :
+MOVE 3 5 2;MOVE 1 3 2
+10
+45
+Sortie standard :
+MOVE 2 5 2
+11
+45
+Sortie d'erreur :
+nb turns: 11
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 6; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 4; production: 2
+Factory id: 5; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 6; player: 1; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 12; player: 1; origin: 1; destination: 4; nb_cyborgs: 2; nb_turns: 11
+Troop id: 13; player: 1; origin: 1; destination: 5; nb_cyborgs: 2; nb_turns: 11
+Troop id: 15; player: 1; origin: 1; destination: 7; nb_cyborgs: 3; nb_turns: 11
+Bomb id: 16; player: -1; origin: 2; destination: -1; nb_turns: -1
+Bomb id: 18; player: 1; origin: 1; destination: 2; nb_turns: 5
+Troop id: 19; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 11
+Bomb id: 20; player: 1; origin: 1; destination: 4; nb_turns: 5
+Troop id: 21; player: 1; origin: 3; destination: 7; nb_cyborgs: 1; nb_turns: 11
+Troop id: 22; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 11
+Troop id: 23; player: -1; origin: 4; destination: 6; nb_cyborgs: 20; nb_turns: 11
+Troop id: 24; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 11
+Troop id: 26; player: -1; origin: 4; destination: 6; nb_cyborgs: 2; nb_turns: 11
+Troop id: 27; player: 1; origin: 3; destination: 5; nb_cyborgs: 2; nb_turns: 3
+Troop id: 28; player: 1; origin: 1; destination: 3; nb_cyborgs: 2; nb_turns: 1
+Troop id: 29; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 4
+Sortie standard :
+MOVE 3 5 2;MOVE 1 3 2
+12
+45
+Sortie standard :
+MOVE 4 6 2
+13
+45
+Sortie d'erreur :
+nb turns: 13
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 8; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 4; production: 2
+Factory id: 5; player: 1; nb_cyborgs: 1; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 18; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 12; player: 1; origin: 1; destination: 4; nb_cyborgs: 2; nb_turns: 13
+Troop id: 15; player: 1; origin: 1; destination: 7; nb_cyborgs: 3; nb_turns: 13
+Bomb id: 16; player: -1; origin: 2; destination: -1; nb_turns: -1
+Bomb id: 18; player: 1; origin: 1; destination: 2; nb_turns: 4
+Troop id: 19; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 13
+Bomb id: 20; player: 1; origin: 1; destination: 4; nb_turns: 4
+Troop id: 21; player: 1; origin: 3; destination: 7; nb_cyborgs: 1; nb_turns: 13
+Troop id: 22; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 13
+Troop id: 24; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 13
+Troop id: 26; player: -1; origin: 4; destination: 6; nb_cyborgs: 2; nb_turns: 13
+Troop id: 27; player: 1; origin: 3; destination: 5; nb_cyborgs: 2; nb_turns: 13
+Troop id: 29; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 13
+Troop id: 30; player: 1; origin: 3; destination: 5; nb_cyborgs: 2; nb_turns: 3
+Troop id: 31; player: 1; origin: 1; destination: 3; nb_cyborgs: 2; nb_turns: 1
+Troop id: 32; player: -1; origin: 4; destination: 6; nb_cyborgs: 2; nb_turns: 3
+Sortie standard :
+MOVE 1 3 2;MOVE 5 3 1;MOVE 3 5 8
+14
+45
+Sortie standard :
+MOVE 6 1 18;MOVE 2 5 2;MOVE 4 5 2
+15
+45
+Sortie d'erreur :
+nb turns: 15
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 4; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 4; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 3; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 4; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 12; player: 1; origin: 1; destination: 4; nb_cyborgs: 2; nb_turns: 15
+Troop id: 15; player: 1; origin: 1; destination: 7; nb_cyborgs: 3; nb_turns: 15
+Bomb id: 16; player: -1; origin: 2; destination: -1; nb_turns: -1
+Bomb id: 18; player: 1; origin: 1; destination: 2; nb_turns: 3
+Troop id: 19; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 15
+Bomb id: 20; player: 1; origin: 1; destination: 4; nb_turns: 3
+Troop id: 22; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 15
+Troop id: 27; player: 1; origin: 3; destination: 5; nb_cyborgs: 2; nb_turns: 15
+Troop id: 29; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 15
+Troop id: 30; player: 1; origin: 3; destination: 5; nb_cyborgs: 2; nb_turns: 15
+Troop id: 32; player: -1; origin: 4; destination: 6; nb_cyborgs: 2; nb_turns: 15
+Troop id: 33; player: 1; origin: 1; destination: 3; nb_cyborgs: 2; nb_turns: 1
+Troop id: 34; player: 1; origin: 5; destination: 3; nb_cyborgs: 1; nb_turns: 3
+Troop id: 35; player: 1; origin: 3; destination: 5; nb_cyborgs: 8; nb_turns: 3
+Troop id: 36; player: -1; origin: 6; destination: 1; nb_cyborgs: 18; nb_turns: 4
+Troop id: 37; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 4
+Troop id: 38; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 5
+Sortie standard :
+MOVE 1 3 2
+16
+45
+Sortie standard :
+MOVE 6 5 3;MOVE 4 5 2
+17
+45
+Sortie d'erreur :
+nb turns: 17
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 8; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 0; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 0; nb_cyborgs: 1; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Bomb id: 16; player: -1; origin: 2; destination: -1; nb_turns: -1
+Bomb id: 18; player: 1; origin: 1; destination: 2; nb_turns: 2
+Troop id: 19; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 17
+Bomb id: 20; player: 1; origin: 1; destination: 4; nb_turns: 2
+Troop id: 22; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 17
+Troop id: 29; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 17
+Troop id: 30; player: 1; origin: 3; destination: 5; nb_cyborgs: 2; nb_turns: 17
+Troop id: 32; player: -1; origin: 4; destination: 6; nb_cyborgs: 2; nb_turns: 17
+Troop id: 34; player: 1; origin: 5; destination: 3; nb_cyborgs: 1; nb_turns: 17
+Troop id: 35; player: 1; origin: 3; destination: 5; nb_cyborgs: 8; nb_turns: 17
+Troop id: 36; player: -1; origin: 6; destination: 1; nb_cyborgs: 18; nb_turns: 17
+Troop id: 37; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 17
+Troop id: 38; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 17
+Troop id: 39; player: 1; origin: 1; destination: 3; nb_cyborgs: 2; nb_turns: 1
+Troop id: 40; player: -1; origin: 6; destination: 5; nb_cyborgs: 3; nb_turns: 6
+Troop id: 41; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 5
+Sortie standard :
+MOVE 1 3 2;MOVE 3 7 8
+18
+45
+Sortie standard :
+MOVE 6 5 1;MOVE 2 5 2;MOVE 4 5 2
+19
+45
+Sortie d'erreur :
+nb turns: 19
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 0; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 4; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 3; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 1; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Bomb id: 18; player: 1; origin: 1; destination: 2; nb_turns: 1
+Bomb id: 20; player: 1; origin: 1; destination: 4; nb_turns: 1
+Troop id: 22; player: 1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 19
+Troop id: 34; player: 1; origin: 5; destination: 3; nb_cyborgs: 1; nb_turns: 19
+Troop id: 35; player: 1; origin: 3; destination: 5; nb_cyborgs: 8; nb_turns: 19
+Troop id: 36; player: -1; origin: 6; destination: 1; nb_cyborgs: 18; nb_turns: 19
+Troop id: 37; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 19
+Troop id: 38; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 19
+Troop id: 40; player: -1; origin: 6; destination: 5; nb_cyborgs: 3; nb_turns: 19
+Troop id: 41; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 19
+Troop id: 42; player: 1; origin: 1; destination: 3; nb_cyborgs: 2; nb_turns: 1
+Troop id: 43; player: 1; origin: 3; destination: 7; nb_cyborgs: 8; nb_turns: 4
+Troop id: 44; player: -1; origin: 6; destination: 5; nb_cyborgs: 1; nb_turns: 6
+Troop id: 45; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 4
+Troop id: 46; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 5
+Sortie standard :
+MOVE 7 3 1
+20
+45
+Sortie standard :
+MOVE 6 1 3;MOVE 4 1 2
+21
+45
+Sortie d'erreur :
+nb turns: 21
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: 1; nb_cyborgs: 0; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 0; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 9; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 0; production: 2
+Factory id: 5; player: 1; nb_cyborgs: 6; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 3; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 36; player: -1; origin: 6; destination: 1; nb_cyborgs: 18; nb_turns: 21
+Troop id: 37; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 21
+Troop id: 38; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 21
+Troop id: 40; player: -1; origin: 6; destination: 5; nb_cyborgs: 3; nb_turns: 21
+Troop id: 41; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 21
+Troop id: 43; player: 1; origin: 3; destination: 7; nb_cyborgs: 8; nb_turns: 21
+Troop id: 44; player: -1; origin: 6; destination: 5; nb_cyborgs: 1; nb_turns: 21
+Troop id: 45; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 21
+Troop id: 46; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 21
+Troop id: 47; player: 1; origin: 7; destination: 3; nb_cyborgs: 1; nb_turns: 4
+Troop id: 48; player: -1; origin: 6; destination: 1; nb_cyborgs: 3; nb_turns: 4
+Troop id: 49; player: -1; origin: 4; destination: 1; nb_cyborgs: 2; nb_turns: 7
+Sortie standard :
+MOVE 5 3 6;MOVE 7 3 3;MOVE 3 5 9;BOMB 1 6
+22
+45
+Sortie standard :
+WAIT
+23
+45
+Sortie d'erreur :
+nb turns: 23
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 18; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 0; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 0; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 1; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 38; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 23
+Troop id: 40; player: -1; origin: 6; destination: 5; nb_cyborgs: 3; nb_turns: 23
+Troop id: 41; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 23
+Troop id: 43; player: 1; origin: 3; destination: 7; nb_cyborgs: 8; nb_turns: 23
+Troop id: 44; player: -1; origin: 6; destination: 5; nb_cyborgs: 1; nb_turns: 23
+Troop id: 45; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 23
+Troop id: 46; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 23
+Troop id: 47; player: 1; origin: 7; destination: 3; nb_cyborgs: 1; nb_turns: 23
+Troop id: 48; player: -1; origin: 6; destination: 1; nb_cyborgs: 3; nb_turns: 23
+Troop id: 49; player: -1; origin: 4; destination: 1; nb_cyborgs: 2; nb_turns: 23
+Troop id: 51; player: 1; origin: 5; destination: 3; nb_cyborgs: 6; nb_turns: 3
+Troop id: 52; player: 1; origin: 7; destination: 3; nb_cyborgs: 3; nb_turns: 4
+Troop id: 53; player: 1; origin: 3; destination: 5; nb_cyborgs: 9; nb_turns: 3
+Sortie standard :
+MOVE 7 3 1;BOMB 3 1
+24
+45
+Sortie standard :
+MOVE 1 3 18;MOVE 6 3 2
+25
+45
+Sortie d'erreur :
+nb turns: 25
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 0; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 0; production: 1
+Factory id: 3; player: 1; nb_cyborgs: 4; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 0; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 4; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 1; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 40; player: -1; origin: 6; destination: 5; nb_cyborgs: 3; nb_turns: 25
+Troop id: 41; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 25
+Troop id: 43; player: 1; origin: 3; destination: 7; nb_cyborgs: 8; nb_turns: 25
+Troop id: 44; player: -1; origin: 6; destination: 5; nb_cyborgs: 1; nb_turns: 25
+Troop id: 45; player: -1; origin: 2; destination: 5; nb_cyborgs: 2; nb_turns: 25
+Troop id: 46; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 25
+Troop id: 47; player: 1; origin: 7; destination: 3; nb_cyborgs: 1; nb_turns: 25
+Troop id: 48; player: -1; origin: 6; destination: 1; nb_cyborgs: 3; nb_turns: 25
+Troop id: 49; player: -1; origin: 4; destination: 1; nb_cyborgs: 2; nb_turns: 25
+Troop id: 51; player: 1; origin: 5; destination: 3; nb_cyborgs: 6; nb_turns: 25
+Troop id: 52; player: 1; origin: 7; destination: 3; nb_cyborgs: 3; nb_turns: 25
+Troop id: 53; player: 1; origin: 3; destination: 5; nb_cyborgs: 9; nb_turns: 25
+Troop id: 55; player: 1; origin: 7; destination: 3; nb_cyborgs: 1; nb_turns: 4
+Troop id: 56; player: -1; origin: 1; destination: 3; nb_cyborgs: 18; nb_turns: 1
+Troop id: 57; player: -1; origin: 6; destination: 3; nb_cyborgs: 2; nb_turns: 5
+Sortie standard :
+BOMB 3 5
+26
+45
+Sortie standard :
+WAIT
+27
+45
+Sortie d'erreur :
+nb turns: 27
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 0; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 0; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 12; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 0; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 9; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 10; production: 1
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 40; player: -1; origin: 6; destination: 5; nb_cyborgs: 3; nb_turns: 27
+Troop id: 44; player: -1; origin: 6; destination: 5; nb_cyborgs: 1; nb_turns: 27
+Troop id: 46; player: -1; origin: 4; destination: 5; nb_cyborgs: 2; nb_turns: 27
+Troop id: 47; player: 1; origin: 7; destination: 3; nb_cyborgs: 1; nb_turns: 27
+Troop id: 48; player: -1; origin: 6; destination: 1; nb_cyborgs: 3; nb_turns: 27
+Troop id: 49; player: -1; origin: 4; destination: 1; nb_cyborgs: 2; nb_turns: 27
+Troop id: 51; player: 1; origin: 5; destination: 3; nb_cyborgs: 6; nb_turns: 27
+Troop id: 52; player: 1; origin: 7; destination: 3; nb_cyborgs: 3; nb_turns: 27
+Troop id: 53; player: 1; origin: 3; destination: 5; nb_cyborgs: 9; nb_turns: 27
+Troop id: 55; player: 1; origin: 7; destination: 3; nb_cyborgs: 1; nb_turns: 27
+Troop id: 57; player: -1; origin: 6; destination: 3; nb_cyborgs: 2; nb_turns: 27
+Sortie standard :
+INC 7;BOMB 7 5
+28
+45
+Sortie standard :
+MOVE 3 7 1
+29
+45
+Sortie d'erreur :
+nb turns: 29
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 5; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 0; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 6; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 0; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 6; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 3; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 2; production: 2
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 44; player: -1; origin: 6; destination: 5; nb_cyborgs: 1; nb_turns: 29
+Troop id: 49; player: -1; origin: 4; destination: 1; nb_cyborgs: 2; nb_turns: 29
+Troop id: 52; player: 1; origin: 7; destination: 3; nb_cyborgs: 3; nb_turns: 29
+Troop id: 55; player: 1; origin: 7; destination: 3; nb_cyborgs: 1; nb_turns: 29
+Troop id: 57; player: -1; origin: 6; destination: 3; nb_cyborgs: 2; nb_turns: 29
+Troop id: 60; player: -1; origin: 3; destination: 7; nb_cyborgs: 1; nb_turns: 4
+Sortie standard :
+BOMB 7 3
+30
+45
+Sortie standard :
+MOVE 1 7 5;MOVE 5 7 6;MOVE 3 7 2;MOVE 6 7 3
+31
+45
+Sortie d'erreur :
+nb turns: 31
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 3; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 4; production: 2
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 49; player: -1; origin: 4; destination: 1; nb_cyborgs: 2; nb_turns: 31
+Troop id: 55; player: 1; origin: 7; destination: 3; nb_cyborgs: 1; nb_turns: 31
+Troop id: 57; player: -1; origin: 6; destination: 3; nb_cyborgs: 2; nb_turns: 31
+Troop id: 60; player: -1; origin: 3; destination: 7; nb_cyborgs: 1; nb_turns: 31
+Troop id: 62; player: -1; origin: 1; destination: 7; nb_cyborgs: 5; nb_turns: 7
+Troop id: 63; player: -1; origin: 5; destination: 7; nb_cyborgs: 6; nb_turns: 5
+Troop id: 64; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 4
+Troop id: 65; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 11
+Sortie standard :
+BOMB 7 3
+32
+45
+Sortie standard :
+WAIT
+33
+45
+Sortie d'erreur :
+nb turns: 33
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 4; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 4; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 4; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 3; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 6; production: 2
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 49; player: -1; origin: 4; destination: 1; nb_cyborgs: 2; nb_turns: 33
+Troop id: 57; player: -1; origin: 6; destination: 3; nb_cyborgs: 2; nb_turns: 33
+Troop id: 60; player: -1; origin: 3; destination: 7; nb_cyborgs: 1; nb_turns: 33
+Troop id: 62; player: -1; origin: 1; destination: 7; nb_cyborgs: 5; nb_turns: 33
+Troop id: 63; player: -1; origin: 5; destination: 7; nb_cyborgs: 6; nb_turns: 33
+Troop id: 64; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 33
+Troop id: 65; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 33
+Sortie standard :
+BOMB 7 1
+34
+45
+Sortie standard :
+WAIT
+35
+45
+Sortie d'erreur :
+nb turns: 35
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 8; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 3; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 8; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 6; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 4; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 3; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 8; production: 2
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 60; player: -1; origin: 3; destination: 7; nb_cyborgs: 1; nb_turns: 35
+Troop id: 62; player: -1; origin: 1; destination: 7; nb_cyborgs: 5; nb_turns: 35
+Troop id: 63; player: -1; origin: 5; destination: 7; nb_cyborgs: 6; nb_turns: 35
+Troop id: 64; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 35
+Troop id: 65; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 35
+Sortie standard :
+BOMB 7 1
+36
+45
+Sortie standard :
+MOVE 1 7 8;MOVE 3 7 8;MOVE 4 8 6;MOVE 4 7 6;MOVE 5 7 4;MOVE 2 7 3;MOVE 6 7 3
+37
+45
+Sortie d'erreur :
+nb turns: 37
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 9; production: 2
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 62; player: -1; origin: 1; destination: 7; nb_cyborgs: 5; nb_turns: 37
+Troop id: 63; player: -1; origin: 5; destination: 7; nb_cyborgs: 6; nb_turns: 37
+Troop id: 64; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 37
+Troop id: 65; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 37
+Troop id: 69; player: -1; origin: 1; destination: 7; nb_cyborgs: 8; nb_turns: 7
+Troop id: 70; player: -1; origin: 3; destination: 7; nb_cyborgs: 8; nb_turns: 4
+Troop id: 71; player: -1; origin: 4; destination: 8; nb_cyborgs: 6; nb_turns: 4
+Troop id: 73; player: -1; origin: 5; destination: 7; nb_cyborgs: 4; nb_turns: 5
+Troop id: 74; player: -1; origin: 2; destination: 7; nb_cyborgs: 3; nb_turns: 10
+Troop id: 75; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 11
+Sortie standard :
+BOMB 7 1
+38
+45
+Sortie standard :
+MOVE 1 7 2;MOVE 3 7 2;MOVE 4 7 2
+39
+45
+Sortie d'erreur :
+nb turns: 39
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 9; production: 2
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 62; player: -1; origin: 1; destination: 7; nb_cyborgs: 5; nb_turns: 39
+Troop id: 63; player: -1; origin: 5; destination: 7; nb_cyborgs: 6; nb_turns: 39
+Troop id: 65; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 39
+Troop id: 69; player: -1; origin: 1; destination: 7; nb_cyborgs: 8; nb_turns: 39
+Troop id: 70; player: -1; origin: 3; destination: 7; nb_cyborgs: 8; nb_turns: 39
+Troop id: 71; player: -1; origin: 4; destination: 8; nb_cyborgs: 6; nb_turns: 39
+Troop id: 73; player: -1; origin: 5; destination: 7; nb_cyborgs: 4; nb_turns: 39
+Troop id: 74; player: -1; origin: 2; destination: 7; nb_cyborgs: 3; nb_turns: 39
+Troop id: 75; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 39
+Troop id: 77; player: -1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 7
+Troop id: 78; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 4
+Troop id: 79; player: -1; origin: 4; destination: 7; nb_cyborgs: 2; nb_turns: 11
+Sortie standard :
+BOMB 7 1
+40
+45
+Sortie standard :
+MOVE 1 7 2;MOVE 2 7 2;MOVE 3 7 2;MOVE 4 7 2;MOVE 5 7 2;MOVE 6 7 2
+41
+45
+Sortie d'erreur :
+nb turns: 41
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 1; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 5; production: 2
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 62; player: -1; origin: 1; destination: 7; nb_cyborgs: 5; nb_turns: 41
+Troop id: 65; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 41
+Troop id: 69; player: -1; origin: 1; destination: 7; nb_cyborgs: 8; nb_turns: 41
+Troop id: 70; player: -1; origin: 3; destination: 7; nb_cyborgs: 8; nb_turns: 41
+Troop id: 71; player: -1; origin: 4; destination: 8; nb_cyborgs: 6; nb_turns: 41
+Troop id: 73; player: -1; origin: 5; destination: 7; nb_cyborgs: 4; nb_turns: 41
+Troop id: 74; player: -1; origin: 2; destination: 7; nb_cyborgs: 3; nb_turns: 41
+Troop id: 75; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 41
+Troop id: 77; player: -1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 41
+Troop id: 78; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 41
+Troop id: 79; player: -1; origin: 4; destination: 7; nb_cyborgs: 2; nb_turns: 41
+Troop id: 81; player: -1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 7
+Troop id: 82; player: -1; origin: 2; destination: 7; nb_cyborgs: 2; nb_turns: 10
+Troop id: 83; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 4
+Troop id: 84; player: -1; origin: 4; destination: 7; nb_cyborgs: 2; nb_turns: 11
+Troop id: 85; player: -1; origin: 5; destination: 7; nb_cyborgs: 2; nb_turns: 5
+Troop id: 86; player: -1; origin: 6; destination: 7; nb_cyborgs: 2; nb_turns: 11
+Sortie standard :
+BOMB 7 1
+42
+45
+Sortie standard :
+MOVE 1 7 2;MOVE 3 7 2;MOVE 4 7 2
+43
+45
+Sortie d'erreur :
+nb turns: 43
+Factory id: 0; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 1; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 2; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 3; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 4; player: -1; nb_cyborgs: 2; production: 2
+Factory id: 5; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 6; player: -1; nb_cyborgs: 2; production: 1
+Factory id: 7; player: 1; nb_cyborgs: 7; production: 2
+Factory id: 8; player: 0; nb_cyborgs: 5; production: 1
+Factory id: 9; player: 0; nb_cyborgs: 0; production: 0
+Factory id: 10; player: 0; nb_cyborgs: 0; production: 0
+Troop id: 62; player: -1; origin: 1; destination: 7; nb_cyborgs: 5; nb_turns: 43
+Troop id: 65; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 43
+Troop id: 69; player: -1; origin: 1; destination: 7; nb_cyborgs: 8; nb_turns: 43
+Troop id: 70; player: -1; origin: 3; destination: 7; nb_cyborgs: 8; nb_turns: 43
+Troop id: 71; player: -1; origin: 4; destination: 8; nb_cyborgs: 6; nb_turns: 43
+Troop id: 73; player: -1; origin: 5; destination: 7; nb_cyborgs: 4; nb_turns: 43
+Troop id: 74; player: -1; origin: 2; destination: 7; nb_cyborgs: 3; nb_turns: 43
+Troop id: 75; player: -1; origin: 6; destination: 7; nb_cyborgs: 3; nb_turns: 43
+Troop id: 77; player: -1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 78; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 79; player: -1; origin: 4; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 81; player: -1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 82; player: -1; origin: 2; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 83; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 84; player: -1; origin: 4; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 85; player: -1; origin: 5; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 86; player: -1; origin: 6; destination: 7; nb_cyborgs: 2; nb_turns: 43
+Troop id: 88; player: -1; origin: 1; destination: 7; nb_cyborgs: 2; nb_turns: 7
+Troop id: 89; player: -1; origin: 3; destination: 7; nb_cyborgs: 2; nb_turns: 4
+Troop id: 90; player: -1; origin: 4; destination: 7; nb_cyborgs: 2; nb_turns: 11
+Sortie standard :
+BOMB 7 1
+44
+45
+Sortie standard :
+MOVE 1 7 2;MOVE 2 7 2;MOVE 3 7 2;MOVE 4 7 2;MOVE 5 7 2;MOVE 6 7 2
+45
+45
+Resume du jeu :
+End reached
